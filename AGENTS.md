@@ -9,17 +9,12 @@ Web aplikacija za iznajmljivanje dronova i uslužno snimanje iz zraka. Aplikacij
 ## Project Directory Structure
 /
 ├── index.html                    # Početna stranica
-├── login.html                    # Stranica za prijavu
-├── register.html                 # Stranica za registraciju
-├── admin.html                   # Admin panel
-├── drones.html                  # Katalog dronova
-├── profile.html                 # Profil korisnika
-├── orders.html                  # Stranica narudžbi
 ├── /frontend
 │   ├── /css
 │   │   └── style.css           # Prilagođeni CSS stilovi
 │   ├── /js
-│   │   └── main.js             # JavaScript skripte
+│   │   └── main.js             # Hash router i JavaScript skripte
+│   ├── /views                  # HTML prikazi koje učitava router
 │   └── /static
 │       └── /assets
 │           └── /images         # Slike, ikone i grafički elementi
@@ -37,3 +32,7 @@ Web aplikacija za iznajmljivanje dronova i uslužno snimanje iz zraka. Aplikacij
 1. **Separation of Concerns:** HTML, CSS i JavaScript moraju biti u odvojenim fajlovima (nema inline stilova niti skripti u HTML-u osim CDN linkova).
 2. **Bootstrap Usage:** Koristiti Bootstrap 5 komponente za UI elemente. Ako Bootstrap JS pravi problem u lokalnom okruženju, dozvoljeno je koristiti čisti JavaScript i CSS za interakcije (poput modala).
 3. **Clean Code:** Piši jasan, komentarisan kod sa čistom semantikom.
+
+`index.html` je SPA shell. Stranice aplikacije smještaju se u `frontend/views/`
+i otvaraju hash rutama kroz `frontend/js/main.js`; interne navigacijske veze ne
+smiju izazvati potpuno ponovno učitavanje dokumenta.

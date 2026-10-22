@@ -9,6 +9,17 @@ body {
     height: 60px;
 }
 
+.auth-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.profile-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 2rem;
+}
+
 .card {
     transition: transform 0.2s ease-in-out;
 }

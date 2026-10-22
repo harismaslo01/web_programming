@@ -40,17 +40,19 @@ The mock authentication system stores the user role in local storage and redirec
 ```text
 /
 ├── index.html
-├── login.html
-├── register.html
-├── admin.html
-├── drones.html
-├── profile.html
-├── orders.html
 ├── frontend/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
 │   │   └── main.js
+│   ├── views/
+│   │   ├── home.html
+│   │   ├── login.html
+│   │   ├── register.html
+│   │   ├── admin.html
+│   │   ├── drones.html
+│   │   ├── profile.html
+│   │   └── orders.html
 │   └── static/
 │       └── assets/
 │           └── images/
@@ -63,8 +65,7 @@ The mock authentication system stores the user role in local storage and redirec
 │   └── services/
 ├── AGENTS.md
 ├── .gitignore
-├── README.md
-└── 
+└── README.md
 ```
 
 ## Technology Stack
@@ -76,9 +77,16 @@ The mock authentication system stores the user role in local storage and redirec
 - Bootstrap Icons
 - LocalStorage-based mock authentication
 
+## Frontend routing
+
+The frontend is a hash-routed single-page application. `index.html` loads views
+from `frontend/views/` without reloading the document; routes use hashes such as
+`#/drones` and `#/login`. Keep view markup in those HTML fragments and put
+shared behavior in `frontend/js/main.js`.
+
 ## How to Run
 
-Because this is a static prototype, it can be opened directly in a browser. For best results, serve the project using a local web server.
+Because the router fetches view fragments, serve this static prototype using a local web server.
 
 Example:
 
@@ -91,6 +99,9 @@ Then open:
 ```text
 http://localhost:8000
 ```
+
+The views are fetched at runtime, so use a local web server rather than opening
+`index.html` directly as a `file://` URL.
 
 ## Demo Login
 
