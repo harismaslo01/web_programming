@@ -1,0 +1,25 @@
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# Dependency folders
+vendor/
+node_modules/
+
+# Logs and runtime output
+backend/logs/*
+!backend/logs/.gitkeep
+logs/
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build and cache
+cache/
+coverage/

@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#/home">
+                <i class="bi bi-airplane-engines text-primary me-2"></i>DronePilot
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul id="navLinks" class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="#/home">Početna</a></li>
+                    <li id="navDrones" class="nav-item"><a class="nav-link" href="#/drones">Dronovi</a></li>
+                    <li id="navOrders" class="nav-item"><a class="nav-link active" href="#/orders">Narudžbe</a></li>
+                    <li id="navProfile" class="nav-item"><a class="nav-link" href="#/profile">Profil</a></li>
+                </ul>
+                <div id="authActions" class="d-flex gap-2 align-items-center">
+                    <a id="loginBtn" href="#/login" class="btn btn-outline-light rounded-pill px-4">Prijava</a>
+                    <a id="registerBtn" href="#/register" class="btn btn-primary rounded-pill px-4">Registracija</a>
+                    <span id="userBadge" class="badge rounded-pill bg-light text-dark d-none">User</span>
+                    <button id="logoutBtn" type="button" class="btn btn-outline-light rounded-pill px-4 d-none">Odjavi se</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <p class="text-primary fw-semibold text-uppercase mb-2">Narudžbe</p>
+                <h1 class="fw-bold mb-0">Pregled aktivnih i završenih projekata</h1>
+            </div>
+            <button class="btn btn-primary rounded-pill px-4">+ Nova narudžba</button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold mb-0">Snimanje dronom</h3>
+                            <span class="badge bg-success-subtle text-success rounded-pill">Završeno</span>
+                        </div>
+                        <p class="text-muted">Projekt za luksuznu nekretninu i promotivni video materijal.</p>
+                        <div class="small text-muted">
+                            <div><strong>Klijent:</strong> Adriatic View</div>
+                            <div><strong>Datum:</strong> 15.10.2026.</div>
+                            <div><strong>Vrijednost:</strong> €1,800</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold mb-0">Inspekcija objekta</h3>
+                            <span class="badge bg-warning-subtle text-warning rounded-pill">U tijeku</span>
+                        </div>
+                        <p class="text-muted">Detaljna inspekcija krova i vanjskih konstrukcija industrijskog objekta.</p>
+                        <div class="small text-muted">
+                            <div><strong>Klijent:</strong> CEM Build</div>
+                            <div><strong>Datum:</strong> 20.10.2026.</div>
+                            <div><strong>Vrijednost:</strong> €2,450</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold mb-0">3D mapiranje terena</h3>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill">Novi</span>
+                        </div>
+                        <p class="text-muted">Za građevinsku dokumentaciju i analizu terena za planiranje razvoja.</p>
+                        <div class="small text-muted">
+                            <div><strong>Klijent:</strong> Green Horizon</div>
+                            <div><strong>Datum:</strong> 22.10.2026.</div>
+                            <div><strong>Vrijednost:</strong> €3,200</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h5 fw-bold mb-0">Fotogrametrija</h3>
+                            <span class="badge bg-secondary-subtle text-secondary rounded-pill">Planirano</span>
+                        </div>
+                        <p class="text-muted">Izrada terenskih ortofota i digitalnog modela za razvoj projekata.</p>
+                        <div class="small text-muted">
+                            <div><strong>Klijent:</strong> Urban Plan</div>
+                            <div><strong>Datum:</strong> 25.10.2026.</div>
+                            <div><strong>Vrijednost:</strong> €1,150</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
