@@ -1,0 +1,360 @@
+Project
+This document describes the project requirements, the milestones and their deadlines, and the
+rules for submitting and defending the project. Please read it carefully at the start of the semester.
+
+
+Introduction
+Students will individually develop a fully functional, responsive and deployed single-page web
+application with a REST backend implemented using the FlightPHP framework and a MySQL
+database. The application must include at least 5 database entities with CRUD operations,
+role-based access, an integration with at least one external API, middleware with info and error
+logging, and it must be documented in a README file.
+
+The project is worth 15% of the final grade and consists of 5 milestones. The frontend must be
+fully connected with the backend by the beginning of Week 12, when Milestones 1 – 4 are
+defended.
+
+AI tools are allowed in the project, provided that their use is documented as described in this
+document and that you understand and can explain every part of your code.
+
+
+Milestones at a Glance
+ Milestone                                      Deadline (8:00 am)   Points   Defense
+
+ M1 · Setup, static frontend, ERD               Mon, 26.10.2026      2        Week 12
+
+ M2 · Database and DAO layer                    Mon, 02.11.2026      2        Week 12
+
+ M3 · Services, routes, OpenAPI, external API   Mon, 23.11.2026      4        Week 12
+
+ M4 · Authentication, middleware, logging,      Mon, 21.12.2026      5        Week 12
+ connected frontend
+
+ M5 · Frontend MVC, validations, deployment     Wed, 06.01.2027      2        No defense
+
+ Total                                                               15
+
+
+ NOTE Each deadline is at the end of the given week (Sunday), and submissions are accepted until 8:00
+
+ am on the following Monday. The exception is milestone 5.
+
+
+
+ CAUTION The frontend must be fully connected with the backend in Milestone 4 (Monday, 21.12.2026).
+
+ A project that is not fully connected cannot be defended, and Milestones 1 – 4 are graded with 0.
+
+
+
+
+                                                        2
+Project Requirements
+ 1.​ The project has to be a web application implemented using the PHP, JS and MySQL
+    technology stack. Libraries like Bootstrap, Highcharts, DataTables and similar are very
+    desirable in the project.
+ 2.​ Mixing backend and frontend code is not allowed. The REST backend should be pure PHP
+    code, while the frontend should be just HTML, CSS and JS.
+ 3.​ Usage of the FlightPHP framework for the REST API is a must.
+ 4.​ Usage of PHP PDO is required for accessing the database layer.
+ 5.​ The project API must be documented using OpenAPI documentation.
+ 6.​ The application must have AJAX requests implemented.
+ 7.​ Every student has to create a GitHub repository where they implement their project. The
+    GitHub repository is used to monitor students' activity and progress of work.
+ 8.​ The application has to be mobile friendly.
+ 9.​ The application must be a single page application.
+ 10.​The project should have at least 5 different entities (e.g., Users, Products, Orders,
+    Categories, Reviews) with basic CRUD operations implemented.
+ 11.​JWT (JSON Web Tokens) is a must for authentication and authorization.
+ 12.​The project should be hosted and publicly available through a domain. The GitHub Student
+    Developer Pack (https://education.github.com/pack) can be used for this purpose; any other
+    hosting providers are allowed and desirable.
+ 13.​The application must support at least 2 different roles.
+ 14.​Usage of HTML templates is recommended. Bootstrap-based templates are also
+    recommended.
+ 15.​Fully connected frontend and backend. Every entity must be manageable through the user
+    interface via AJAX calls to your REST API, with no static or hard-coded data left in the
+    frontend.
+ 16.​External API. The application must integrate at least one external (third-party) API.
+ 17.​Additional middleware. Besides JWT verification, the backend must have additional
+    middleware (see below).
+ 18.​Logging. The backend must write an info log and an error log (see below).
+ 19.​Configuration and secrets. Database credentials, the JWT secret and API keys are stored in
+    a configuration file that is not committed to GitHub; a template file (e.g., config.example.php)
+    is committed instead.
+ 20.​AI usage documentation. The repository must contain AGENTS.md and docs/AI_LOG.md
+    (see below).
+
+                                                  3
+  21.​All additional components and libraries are desirable.
+
+
+Detailed Requirements
+External API
+  ●​ At least one call to a third-party API.
+  ●​ The data must be used in a meaningful feature that is visible in the user interface, not only
+     printed as raw JSON.
+  ●​ Failures must be handled: set a timeout, handle error responses, write the failure to the
+     error log and return a user-friendly message. The application must keep working if the
+     external API is unavailable.
+  ●​ Examples: weather (OpenWeatherMap), currency rates (Frankfurter), countries (REST
+     Countries), maps (OpenStreetMap Nominatim), books (Open Library), recipes (TheMealDB),
+     email sending (Mailtrap), or any other API relevant to your project.
+
+Middleware
+Middleware must be reusable code registered in FlightPHP, not code copied into every route.
+Required:
+
+  ●​ Authentication: verifies the JWT token on all protected routes and returns 401 if it is
+     missing, invalid or expired.
+  ●​ Authorization: a reusable role check that returns 403 if the user does not have the required
+     role.
+  ●​ Request logging: writes every request to the info log.
+  ●​ Error handling: catches unhandled exceptions, writes them to the error log and returns a
+     JSON error message without exposing stack traces, SQL queries or file paths.
+
+Logging
+  ●​ Info log (backend/logs/info.log): every request (time, method, route, status, user and role),
+     successful logins and registrations, and external API calls.
+  ●​ Error log (backend/logs/error.log): unhandled exceptions, database errors, failed logins,
+     rejected requests (401/403), and external API failures.
+  ●​ Log can be a database table.
+
+ TIP Example log lines: [2026-12-01 14:05:12] INFO GET /orders 200 user=12 role=admin 35ms and
+
+ [2026-12-01 14:05:13] ERROR POST /orders 500 user=12 PDOException: ... (OrderDao.php:42).
+ During the defense you will be asked to show your logs and explain an entry.
+
+
+
+
+                                                    4
+AI usage documentation
+You may use any AI tool. The goal is not to measure how much AI you use, but whether you use it in
+a controlled, professional way. Both files must be updated in every milestone:
+
+  ●​ AGENTS.md (repository root): a context file for AI coding assistants, written by you: project
+      description, technology stack, architecture rules, folder structure, naming conventions and
+      rules that the AI must follow.
+  ●​ docs/AI_LOG.md: one section per milestone with the AI tools you used and for which parts,
+      the most important prompts, and at least 2 cases where the AI was wrong or produced poor
+      code: what was wrong, how you noticed it and how you fixed it.
+  ●​ If you do not use AI tools, state this in AI_LOG.md; AGENTS.md is still required, since it
+      documents your architecture.
+
+ CAUTION A missing or not updated AGENTS.md or AI_LOG.md results in −0.25 points for that milestone.
+
+
+
+More about setup is available at       01.01. Lab - AI Coding Assistants and Agents
+
+README
+The README must contain: project description, entities and their relationships, roles and test
+accounts for each role, the external API and the feature it supports, instructions for running the
+project locally (importing the .sql file and creating the configuration file), the link to the Swagger
+documentation, and the link to the deployed application.
+
+
+Milestones
+Milestone 1: Initial Setup, Static Frontend and Database Planning (2
+pts)
+Deadline: End of Week 3 (Sunday, 25.10.2026), latest by 8:00 am on Monday, 26.10.2026.
+
+Submit your topic and GitHub repository via the link on the LMS.
+
+Requirements:
+
+  1.​ (0.5 pts) Project structure:
+         ○​ Set up the project folder structure with frontend and backend directories.
+         ○​ Backend folders: routes, services, dao, middleware, config, logs (excluded from Git).
+         ○​ Frontend folders: css, js, views (HTML templates), static assets.
+         ○​ Add a .gitignore file (configuration file with secrets, logs, vendor folder).
+  2.​ (1 pt) Static frontend:
+
+
+                                                   5
+         ○​ Prepare all pages and components needed for the frontend part of the application.
+         ○​ Pages are static and function as a single-page application (SPA): navigation happens
+             without full page reloads. There is no need to connect them with the backend at this
+             stage.
+         ○​ You may use HTML/Bootstrap templates, customized to fit the specific needs of your
+             project.
+         ○​ Required pages: register/login and all other pages relevant to your project (e.g.,
+             dashboard, entity pages, profile). Plan where the external API feature will appear.
+         ○​ Use a consistent theme and responsive design.
+  3.​ (0.5 pts) Database schema (planning only):
+         ○​ Identify at least 5 entities for the application.
+         ○​ Submit a draft Entity-Relationship Diagram (ERD) showing the relationships among
+             the entities.
+Deliverables: Git repository with the project structure; SPA with all frontend components; draft
+ERD; README draft.
+
+Milestone 2: Database and DAO Layer (2 pts)
+Deadline: End of Week 4 (Sunday, 01.11.2026), latest by 8:00 am on Monday, 02.11.2026.
+
+Requirements:
+
+  1.​ (0.5 pts) Database creation:
+         ○​ Design and document a relational database schema in MySQL with at least 5 entities,
+             primary and foreign keys.
+         ○​ Create the database according to the design and export it into a .sql file with sample
+             data.
+  2.​ (1.5 pts) DAO layer:
+         ○​ Implement the DAO layer to interact with the database for at least five entities, with a
+             base DAO class for reusable methods.
+         ○​ Provide CRUD functionality for these entities: Create (POST), Read (GET), Update
+             (PUT/PATCH) and Delete (DELETE), using prepared statements.
+         ○​ Database credentials are read from the configuration file, which is not committed
+             (commit config.example.php instead).
+Deliverables: MySQL .sql file with at least five entities; DAO classes for all entities.
+
+
+
+
+                                                   6
+Milestone 3: Business Logic, Presentation Layer, OpenAPI and
+External API (4 pts)
+Deadline: End of Week 7 (Sunday, 22.11.2026), latest by 8:00 am on Monday, 23.11.2026.
+
+Requirements:
+
+  1.​ (1 pt) Business logic:
+        ○​ Create a service for each database entity.
+        ○​ Implement application-specific logic and constraints (e.g., validation rules).
+        ○​ Services encapsulate reusable logic, are modular, and are the only layer that calls the
+            DAO.
+  2.​ (1 pt) Presentation layer:
+        ○​ Implement FlightPHP routes for all CRUD operations of all entities.
+        ○​ Return JSON with correct HTTP status codes (200, 201, 400, 401, 403, 404, 500).
+  3.​ (1 pt) OpenAPI documentation:
+        ○​ Document all API endpoints using the OpenAPI standard.
+        ○​ Provide a visual API documentation page (Swagger).
+  4.​ (1 pt) External API:
+        ○​ Implement a service that calls the external API and a backend endpoint that provides
+            the result to your frontend.
+        ○​ Handle timeouts and errors as described in the detailed requirements, and keep the
+            API key in the configuration file.
+        ○​ Document the endpoint in OpenAPI.
+Deliverables: CRUD API endpoints for all entities; services with business logic; OpenAPI
+documentation with Swagger; working external API endpoint.
+
+
+Milestone 4: Authentication, Authorization, Middleware, Logging and
+Connected Frontend (5 pts)
+Deadline: End of Week 11 (Sunday, 20.12.2026), latest by 8:00 am on Monday, 21.12.2026.
+
+Requirements:
+
+  1.​ (1 pt) Authentication:
+        ○​ Users can register and log in; passwords are hashed.
+        ○​ A JWT token is issued at login and verified by the authentication middleware on all
+            protected routes.
+  2.​ (0.5 pts) Authorization:
+
+
+                                                 7
+        ○​ Role-based access control implemented as reusable middleware.
+        ○​ Admins can perform CRUD operations for all entities; regular users have restricted
+            access (e.g., view-only for certain entities).
+  3.​ (1 pt) Additional middleware:
+        ○​ Request logging and error handling middleware.
+  4.​ (1 pt) Logging:
+        ○​ Info log and error log implemented as described in the detailed requirements.
+  5.​ (1.5 pts) Connected frontend:
+        ○​ All entities are fully manageable through the user interface via AJAX calls; no static
+            data remains.
+        ○​ The JWT token is sent with every request; on 401 the user is sent to the login page,
+            and on 403 a proper message is shown.
+        ○​ The UI reflects roles (e.g., buttons and pages visible only to admins); dynamic features
+            for authenticated users (e.g., personalized dashboard, admin panel).
+        ○​ The external API feature is available in the UI.
+Deliverables: authentication and authorization middleware; additional middleware; info and error
+logs; fully connected frontend and backend with role-based UI.
+
+ CAUTION A fully connected frontend and backend is a condition for the defense of Milestones 1 – 4.
+
+
+
+
+Milestone 5: Frontend Validations and Deployment (2 pts)
+Deadline: Wednesday, 06.01.2027, 08:00 am
+
+Requirements:
+
+  1.​ (0.5 pts) Frontend MVC:
+        ○​ Only frontend service files communicate with the backend; views do not contain
+            AJAX calls directly.
+  2.​ (0.5 pts) Validations and security:
+        ○​ Client-side and server-side form validations (e.g., required fields, email format,
+            lengths, ranges).
+  3.​ (1 pt) Deployment:
+        ○​ Deploy the web application on a hosting platform (e.g., DigitalOcean, Heroku, AWS or
+            any other provider).
+        ○​ The database is hosted and connected to the deployed backend, and the external API
+            works on the deployed application.
+
+
+                                                   8
+           ○​ Add the live link and test accounts to the README.
+Deliverables: deployed web application with a live link in the README; Git repository with final
+code and documentation.
+
+ NOTE There is no defense for Milestone 5. Submissions are graded after the deadline, and all results are
+
+ entered into the system at once.
+
+
+
+Project Defense
+Milestones 1 – 4 are defended in Weeks 12. The schedule will be published on the LMS. Only
+milestones submitted on time with correct pull requests and correct reviews are eligible for
+defense.
+
+Conditions for the defense:
+
+  ●​ The milestone was submitted on time with a correct pull request and reviewer.
+  ●​ The frontend is fully connected with the backend. This is checked at the beginning of the
+      defense; if the application is not fully connected, the defense ends and Milestones 1 – 4 are
+      graded with 0.
+  ●​ The application runs during the defense.
+Defense format (without AI tools):
+
+  ●​ Demo: run the application and show the main features, including the external API feature.
+  ●​ Request trace: for an action chosen by the examiner, explain the complete path: click →
+      AJAX call → route → middleware → service → DAO → SQL → response → UI update, and
+      show the related log entries.
+  ●​ Code questions: explain a file or function chosen by the examiner.
+  ●​ Live change: implement a small change in your code, such as adding a field or restricting an
+      endpoint to admins.
+
+ CAUTION The points earned for each milestone are multiplied by your level of understanding shown at
+
+ the defense: 100% (full), 50% (partial) or 0% (cannot explain the code). Code that you cannot explain is
+ not worth points.
+
+
+
+
+                                                     9
+How to Submit a Milestone?
+ 1.​ Each milestone should be implemented on a separate branch (milestone1, milestone2,
+     milestone3, milestone4, milestone5).
+ 2.​ All milestone related code should be added to the milestone branch.
+ 3.​ Before the deadline, a PR must be created and user ibu-web-programming2001 must be
+     added as reviewer (and as collaborator on the repository).
+ 4.​ Late submissions will not be accepted, and a given milestone will be graded with 0. If you do
+     not add a collaborator on time, you will not be able to add a collaborator as a reviewer.
+     Collaboration requests submitted during the weekend before the deadline will not be
+     accepted.
+ 5.​ Once the PR is approved, the reviewer will merge the code to the main branch, and you can
+     create a branch for the next milestone and continue with your work.
+
+ CAUTION Do not merge the milestone branch into the main branch. Doing so will prevent the reviewer
+
+ from verifying your submission.
+
+
+
+
+                                                 10
+

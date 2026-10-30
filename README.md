@@ -128,6 +128,72 @@ This project is currently a frontend prototype and not yet connected to a real b
 - payment and scheduling logic
 - real user session handling
 
+## Database Entities and Relationships
+
+The Milestone 2 MySQL schema contains seven entities and sample records:
+
+- `roles`: Admin and User roles.
+- `users`: user accounts linked to `roles.role_id`.
+- `services`: available aerial service types.
+- `drones`: drone inventory linked to service orders.
+- `orders`: customer bookings linked to users, services, and drones.
+- `media`: uploaded files linked to orders.
+- `settings`: application configuration values.
+
+Main relationships:
+
+- `users.role_id -> roles.id`
+- `orders.user_id -> users.id`
+- `orders.service_id -> services.id`
+- `orders.drone_id -> drones.id`
+- `media.order_id -> orders.id`
+
+The draft ERD is [database.png](database.png), and the importable schema is
+[database/dronepilot_services.sql](database/dronepilot_services.sql).
+
+## Roles and Test Accounts
+
+- Admin: `admin@dronpilot.ba`
+- Regular User: `haris@stu.ibu.edu.ba`
+
+These accounts currently demonstrate the frontend prototype. Real backend
+authentication and JWT access will be implemented in the authentication milestone.
+
+## Local Database Setup
+
+1. Copy the configuration template:
+
+   ```bash
+   cp backend/config/config.example.php backend/config/config.php
+   ```
+
+2. Update the local database credentials in `backend/config/config.php`.
+   Do not commit this file.
+
+3. Import the schema and sample data:
+
+   ```bash
+   mysql -u root -p < database/dronepilot_services.sql
+   ```
+
+4. Run the DAO verification script when PHP and the PDO MySQL extension are
+   available:
+
+   ```bash
+   php backend/test/DaoTest.php
+   ```
+
+## Future API Documentation and Deployment
+
+Swagger/OpenAPI documentation and the deployed application link will be added
+when the FlightPHP API and deployment milestones are completed. The README will
+then include:
+
+- the Swagger documentation URL;
+- the public application URL;
+- the external API and supported feature;
+- final test accounts for each role.
+
 ## License
 
 This project is for demonstration and educational use.
