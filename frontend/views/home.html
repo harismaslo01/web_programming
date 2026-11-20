@@ -1,173 +1,361 @@
-<!-- Navigacija -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#/home">
-                <i class="bi bi-airplane-engines text-primary me-2"></i>DronePilot
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul id="navLinks" class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#/home">Početna</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#usluge">Usluge</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#dronovi">Naši Dronovi</a></li>
-                    <li id="navDrones" class="nav-item d-none"><a class="nav-link" href="#/drones">Dronovi</a></li>
-                    <li id="navOrders" class="nav-item d-none"><a class="nav-link" href="#/orders">Narudžbe</a></li>
-                    <li id="navProfile" class="nav-item d-none"><a class="nav-link" href="#/profile">Profil</a></li>
-                </ul>
-                <div id="authActions" class="d-flex gap-2 align-items-center">
-                    <a id="loginBtn" href="#/login" class="btn btn-outline-light rounded-pill px-4">Prijava</a>
-                    <a id="registerBtn" href="#/register" class="btn btn-primary rounded-pill px-4">Registracija</a>
-                    <span id="userBadge" class="badge rounded-pill bg-light text-dark d-none">User</span>
-                    <button id="logoutBtn" type="button" class="btn btn-outline-light rounded-pill px-4 d-none">Odjavi se</button>
-                </div>
-            </div>
-        </div>
-    </nav>
+<!-- Hero: sky, clouds and a hovering drone (all decoration is styled in style.css) -->
+<section class="hero-sky">
+    <div class="hero-sun" aria-hidden="true"></div>
+    <div class="cloud cloud-1" aria-hidden="true"></div>
+    <div class="cloud cloud-2" aria-hidden="true"></div>
+    <div class="cloud cloud-3" aria-hidden="true"></div>
+    <div class="cloud cloud-4" aria-hidden="true"></div>
 
-    <!-- Hero Sekcija -->
-    <section class="py-5 text-center text-white bg-dark bg-gradient">
-        <div class="container py-5">
-            <h1 class="display-4 fw-bold">Profesionalno Snimanje Dronom</h1>
-            <p class="lead text-light mb-4">Usluge snimanja iz zraka u 4K rezoluciji, fotogrametrija i inspekcije objekata.</p>
-            <a href="#usluge" class="btn btn-primary btn-lg rounded-pill px-4 me-2">Pogledaj Usluge</a>
-        </div>
-    </section>
-
-    <!-- Usluge -->
-    <section id="usluge" class="py-5 bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <p class="text-primary fw-semibold text-uppercase mb-2">Naše usluge</p>
-                <h2 class="fw-bold">Rješenja koja pokrivaju sve potrebe snimanja i inspekcije</h2>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card service-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/sa_photo2.JPG" class="service-image" alt="Snimanje dronom">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">Snimanje dronom</h3>
-                            <p class="text-muted mb-0">Kreativno i profesionalno snimanje iz zraka za događaje, nekretnine, kampanje i promocijske materijale.</p>
-                        </div>
+    <div class="container position-relative">
+        <div class="row align-items-center g-4 g-lg-5 hero-content">
+            <div class="col-lg-6 text-center text-lg-start">
+                <div class="hero-glass">
+                    <span class="hero-badge">
+                        <i class="bi bi-patch-check-fill me-2"></i>Licencirani piloti · DJI flota
+                    </span>
+                    <h1 class="hero-title">Pogled iz zraka koji priča <span class="hero-highlight">vašu priču</span></h1>
+                    <p class="hero-lead">
+                        Snimanje u 4K rezoluciji, inspekcije objekata i 3D mapiranje terena.
+                        Prije svakog leta provjeravamo vremensku prognozu, da vaš termin bude siguran.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+                        <a href="#usluge" class="btn btn-light btn-lg rounded-pill px-4 fw-semibold hero-btn">
+                            <i class="bi bi-grid-fill me-2"></i>Pogledaj usluge
+                        </a>
+                        <a href="#vrijeme" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-semibold">
+                            <i class="bi bi-cloud-sun-fill me-2"></i>Vrijeme za let
+                        </a>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card service-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/insp.JPG" class="service-image" alt="Inspekcija dronom">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">Inspekcija dronom</h3>
-                            <p class="text-muted mb-0">Brza i sigurna kontrola objekata, infrastrukture i industrijskih površina uz detaljne vizualne zapise.</p>
+                    <div class="hero-stats">
+                        <div>
+                            <strong>4K</strong>
+                            <span>video i foto</span>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card service-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/map.JPG" class="service-image" alt="3D mapiranje terena dronom">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">3D mapiranje terena dronom</h3>
-                            <p class="text-muted mb-0">Precizno kartiranje terena i analiza prostora za građevinarstvo, poljoprivredu i razvoj projekata.</p>
+                        <div>
+                            <strong>3D</strong>
+                            <span>mapiranje terena</span>
+                        </div>
+                        <div>
+                            <strong>7 dana</strong>
+                            <span>provjera prognoze</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Naši Dronovi -->
-    <section id="dronovi" class="py-5 bg-white">
-        <div class="container">
-            <div class="text-center mb-5">
-                <p class="text-primary fw-semibold text-uppercase mb-2">Naši dronovi</p>
-                <h2 class="fw-bold">DJI alati koje koristi naša ekipa</h2>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card drone-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/lito1.JPG" class="drone-image" alt="DJI L1">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">DJI Lito 1</h3>
-                            <p class="text-muted mb-0">Kompaktan i ultra-laki dron idealan za brze terenske zadatke, putovanja i fleksibilna snimanja izbliza.</p>
-                        </div>
+            <div class="col-lg-6">
+                <div class="hero-drone-wrap">
+                    <div class="hero-drone-glow" aria-hidden="true"></div>
+                    <svg class="hero-drone" viewBox="0 0 360 230" role="img" aria-label="Ilustracija drona u letu">
+                        <!-- arms -->
+                        <path class="drone-arm" d="M180 104 L72 56 M180 104 L288 56 M180 104 L82 156 M180 104 L278 156"/>
+                        <!-- rotor blur discs -->
+                        <ellipse class="drone-rotor-disc" cx="72" cy="56" rx="54" ry="11"/>
+                        <ellipse class="drone-rotor-disc" cx="288" cy="56" rx="54" ry="11"/>
+                        <ellipse class="drone-rotor-disc" cx="82" cy="156" rx="54" ry="11"/>
+                        <ellipse class="drone-rotor-disc" cx="278" cy="156" rx="54" ry="11"/>
+                        <!-- spinning blades -->
+                        <ellipse class="drone-blade" cx="72" cy="56" rx="50" ry="3.5"/>
+                        <ellipse class="drone-blade drone-blade-reverse" cx="288" cy="56" rx="50" ry="3.5"/>
+                        <ellipse class="drone-blade drone-blade-reverse" cx="82" cy="156" rx="50" ry="3.5"/>
+                        <ellipse class="drone-blade" cx="278" cy="156" rx="50" ry="3.5"/>
+                        <!-- motors -->
+                        <circle class="drone-motor" cx="72" cy="56" r="9"/>
+                        <circle class="drone-motor" cx="288" cy="56" r="9"/>
+                        <circle class="drone-motor" cx="82" cy="156" r="9"/>
+                        <circle class="drone-motor" cx="278" cy="156" r="9"/>
+                        <!-- body, shell and status lights -->
+                        <rect class="drone-body" x="136" y="80" width="88" height="48" rx="22"/>
+                        <rect class="drone-shell" x="148" y="86" width="64" height="16" rx="8"/>
+                        <circle class="drone-led drone-led-green" cx="150" cy="114" r="3.5"/>
+                        <circle class="drone-led drone-led-red" cx="210" cy="114" r="3.5"/>
+                        <!-- gimbal camera -->
+                        <rect class="drone-gimbal" x="168" y="126" width="24" height="10" rx="3"/>
+                        <circle class="drone-camera" cx="180" cy="148" r="14"/>
+                        <circle class="drone-lens" cx="180" cy="148" r="7"/>
+                        <circle class="drone-lens-glint" cx="177" cy="145" r="2"/>
+                    </svg>
+                    <div class="hero-chip hero-chip-top">
+                        <i class="bi bi-wind me-2"></i>Prognoza provjerena prije leta
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card drone-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/air3s.JPG" class="drone-image" alt="DJI Air 3S">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">DJI Air 3S</h3>
-                            <p class="text-muted mb-0">Svestrani dron sa dvostrukom kamerom i 1-inčnim senzorom, stvoren za vrhunske pejzaže i oštre detalje u svim uslovima.</p>
-                        </div>
+                    <div class="hero-chip hero-chip-bottom">
+                        <i class="bi bi-camera-video-fill me-2"></i>Snimanje u toku
                     </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card drone-card h-100 border-0 shadow-sm">
-                        <img src="frontend/static/assets/images/mavic.JPG" class="drone-image" alt="DJI Mavic 4 Pro">
-                        <div class="card-body p-4">
-                            <h3 class="h4 fw-bold mb-3">DJI Mavic 4 Pro</h3>
-                            <p class="text-muted mb-0">Vodeći profesionalni sistem sa vrhunskom Hasselblad optikom i naprednim zumom za beskompromisne filmske snimke.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="api" class="py-5 bg-light">
-        <div class="container">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-6">
-                    <p class="text-primary fw-semibold text-uppercase mb-2">Future API</p>
-                    <h2 class="fw-bold mb-3">Mjesto za integraciju vanjskih servisa i map API-ja</h2>
-                    <p class="text-muted mb-4">Ovdje će kasnije doći integracija sa geolokacijskim servisima, GIS podacima, analitičkim API-jem ili drugim vanjskim platformama za obradu snimaka i terenskih podataka.</p>
-                    <ul class="feature-list">
-                        <li>Google Maps / GIS integracija</li>
-                        <li>Statistika i analitika po projektima</li>
-                        <li>Upload i obrada prijenosa podataka</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-                        <div class="placeholder-box">
-                            <i class="bi bi-cloud-arrow-up fs-1 text-primary"></i>
-                            <p class="fw-semibold mb-0">API integracija</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal Prozor (Ovo se prikazuje tek kada se klikne na Login) -->
-    <div class="modal fade" id="loginSuccessModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4 border-0 shadow-lg">
-                <div class="modal-header bg-success text-white border-0 rounded-top-4">
-                    <h5 class="modal-title fw-bold" id="modalLabel">
-                        <i class="bi bi-check-circle-fill me-2"></i>Uspješna Prijava!
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Zatvori"></button>
-                </div>
-                <div class="modal-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="bi bi-person-check-fill text-success display-1"></i>
-                    </div>
-                    <h4 class="fw-bold text-dark">Dobrodošli nazad!</h4>
-                    <p class="text-muted mb-0">Uspješno ste simulirali prijavu na sistem <strong>DronePilot Services</strong>.</p>
-                </div>
-                <div class="modal-footer border-0 justify-content-center pb-4">
-                    <button type="button" class="btn btn-success rounded-pill px-5 fw-bold" data-bs-dismiss="modal">Nastavi dalje</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap 5.3 JS Bundle -->
+    <svg class="section-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,64 C240,120 480,8 720,52 C960,96 1200,24 1440,60 L1440,120 L0,120 Z"/>
+    </svg>
+</section>
 
-    <!-- Prilagođeni JS -->
+<!-- Why us -->
+<section class="landing-section features-section bg-white">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-sm-6 col-lg-3">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="bi bi-shield-check"></i></span>
+                    <h3 class="h6 fw-bold mb-2">Licencirani piloti</h3>
+                    <p class="text-muted small mb-0">Svaki let vodi obučen pilot, uz poštivanje pravila o zračnom prostoru.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="bi bi-camera-reels"></i></span>
+                    <h3 class="h6 fw-bold mb-2">4K i RAW snimci</h3>
+                    <p class="text-muted small mb-0">Profesionalne kamere i stabilizacija za oštru sliku i filmske kadrove.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="bi bi-cloud-sun"></i></span>
+                    <h3 class="h6 fw-bold mb-2">Provjera vremena</h3>
+                    <p class="text-muted small mb-0">Termin po kiši, magli ili jakom vjetru ne primamo, nego predlažemo bolji.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="feature-card">
+                    <span class="feature-icon"><i class="bi bi-lightning-charge"></i></span>
+                    <h3 class="h6 fw-bold mb-2">Brza isporuka</h3>
+                    <p class="text-muted small mb-0">Obrađene fotografije, video i mape dobijate online, spremne za upotrebu.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="usluge" class="landing-section bg-light">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow"><i class="bi bi-grid me-2"></i>Naše usluge</span>
+            <h2>Rješenja za snimanje, inspekciju i mapiranje</h2>
+            <p class="text-muted">Od promotivnog videa do preciznog modela terena, sve iz jednog drona.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="card service-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/sa_photo2.JPG" class="service-image" alt="Snimanje dronom iznad Sarajeva">
+                        <span class="card-tag"><i class="bi bi-camera me-1"></i>Foto i video</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">Snimanje dronom</h3>
+                        <p class="text-muted mb-0">Kreativno i profesionalno snimanje iz zraka za događaje, nekretnine, kampanje i promotivne materijale.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card service-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/insp.JPG" class="service-image" alt="Inspekcija dalekovoda dronom">
+                        <span class="card-tag"><i class="bi bi-search me-1"></i>Inspekcija</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">Inspekcija dronom</h3>
+                        <p class="text-muted mb-0">Brza i sigurna kontrola objekata, infrastrukture i industrijskih površina uz detaljne vizualne zapise.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card service-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/map.JPG" class="service-image" alt="3D mapiranje grada dronom">
+                        <span class="card-tag"><i class="bi bi-map me-1"></i>Mapiranje</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">3D mapiranje terena</h3>
+                        <p class="text-muted mb-0">Precizno kartiranje terena i analiza prostora za građevinarstvo, poljoprivredu i razvoj projekata.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section class="landing-section bg-white">
+    <div class="container">
+        <div class="section-heading">
+            <span class="section-eyebrow"><i class="bi bi-signpost-split me-2"></i>Kako funkcioniše</span>
+            <h2>Od rezervacije do polijetanja u četiri koraka</h2>
+        </div>
+
+        <div class="row g-4 steps-row">
+            <div class="col-sm-6 col-lg-3">
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <i class="bi bi-grid-3x3-gap step-icon"></i>
+                    <h3 class="h6 fw-bold">Izaberite uslugu</h3>
+                    <p class="text-muted small mb-0">Snimanje, inspekcija ili 3D mapiranje.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <i class="bi bi-geo-alt step-icon"></i>
+                    <h3 class="h6 fw-bold">Lokacija i termin</h3>
+                    <p class="text-muted small mb-0">Unesite mjesto i datum snimanja.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <i class="bi bi-cloud-check step-icon"></i>
+                    <h3 class="h6 fw-bold">Provjera vremena</h3>
+                    <p class="text-muted small mb-0">Prognoza za vaš termin se provjerava automatski.</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <i class="bi bi-send step-icon"></i>
+                    <h3 class="h6 fw-bold">Polijetanje</h3>
+                    <p class="text-muted small mb-0">Pilot leti, a vi dobijate gotove materijale.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Drones: night sky band -->
+<section id="dronovi" class="landing-section drones-band">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="container position-relative">
+        <div class="section-heading section-heading-light">
+            <span class="section-eyebrow"><i class="bi bi-airplane-engines me-2"></i>Naša flota</span>
+            <h2>DJI dronovi koje koristi naša ekipa</h2>
+            <p>Za svaki zadatak biramo pravi dron: od laganog kompaktnog do profesionalnog filmskog.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <article class="card drone-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/lito1.JPG" class="drone-image" alt="DJI Lito 1">
+                        <span class="card-tag">Kompaktni</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">DJI Lito 1</h3>
+                        <p class="text-muted mb-0">Kompaktan i ultra-lagan dron, idealan za brze terenske zadatke, putovanja i fleksibilna snimanja izbliza.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card drone-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/air3s.JPG" class="drone-image" alt="DJI Air 3S">
+                        <span class="card-tag">Svestrani</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">DJI Air 3S</h3>
+                        <p class="text-muted mb-0">Svestrani dron s dvostrukom kamerom i 1-inčnim senzorom, za vrhunske pejzaže i oštre detalje u svim uslovima.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-md-4">
+                <article class="card drone-card h-100 border-0">
+                    <div class="card-image-wrap">
+                        <img src="frontend/static/assets/images/mavic.JPG" class="drone-image" alt="DJI Mavic 4 Pro">
+                        <span class="card-tag">Profesionalni</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <h3 class="h5 fw-bold mb-2">DJI Mavic 4 Pro</h3>
+                        <p class="text-muted mb-0">Vodeći profesionalni sistem s Hasselblad optikom i naprednim zumom za beskompromisne filmske snimke.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vrijeme za let: data comes from GET /backend/weather/... (Open-Meteo), rendered by main.js -->
+<section id="vrijeme" class="landing-section weather-sky">
+    <div class="cloud cloud-soft cloud-5" aria-hidden="true"></div>
+    <div class="cloud cloud-soft cloud-6" aria-hidden="true"></div>
+
+    <div class="container position-relative">
+        <div class="section-heading">
+            <span class="section-eyebrow"><i class="bi bi-cloud-sun me-2"></i>Vrijeme za let</span>
+            <h2>Može li dron danas poletjeti?</h2>
+            <p class="text-muted">Trenutni uslovi i prognoza za narednih 5 dana. Dronovi ne lete po kiši, snijegu, magli, grmljavini i jakom vjetru, pa takve termine ne primamo.</p>
+        </div>
+
+        <form id="weatherForm" class="weather-search mb-4" novalidate>
+            <label for="weatherCity" class="visually-hidden">Grad</label>
+            <i class="bi bi-geo-alt-fill weather-search-icon" aria-hidden="true"></i>
+            <input type="text" id="weatherCity" class="form-control form-control-lg"
+                value="Sarajevo" maxlength="100" placeholder="Unesite grad" required>
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-4">
+                <i class="bi bi-search me-2"></i>Provjeri
+            </button>
+        </form>
+
+        <div id="weatherStatus" class="text-center text-muted mb-3" role="status" aria-live="polite"></div>
+
+        <div id="weatherResult" class="d-none">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 weather-current-card">
+                        <div id="weatherCurrent" class="card-body p-4"></div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div id="weatherForecast" class="row g-3"></div>
+                    <p class="small text-muted mt-3 mb-0">
+                        Dnevna kartica je sažetak cijelog dana. Pri rezervaciji se provjerava tačan sat termina i naredna 2 sata.
+                    </p>
+                </div>
+            </div>
+            <p class="small text-muted text-end mt-3 mb-0">
+                Podaci: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo.com</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Call to action -->
+<section class="landing-section bg-white">
+    <div class="container">
+        <div class="cta-band">
+            <div class="cloud cloud-cta" aria-hidden="true"></div>
+            <div class="row align-items-center g-4 position-relative">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h2 class="fw-bold mb-2">Spremni za polijetanje?</h2>
+                    <p class="mb-0">Napravite nalog, izaberite uslugu i termin, a mi ćemo provjeriti nebo za vas.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <a href="#/register" class="btn btn-light btn-lg rounded-pill px-4 fw-semibold">
+                        <i class="bi bi-rocket-takeoff-fill me-2"></i>Registrujte se
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="landing-footer">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="fw-bold fs-5"><i class="bi bi-airplane-engines text-primary me-2"></i>DronePilot</span>
+                <p class="small mb-0 mt-1">Profesionalne usluge dronom · Bosna i Hercegovina</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end small">
+                <a href="#usluge">Usluge</a>
+                <a href="#dronovi">Flota</a>
+                <a href="#vrijeme">Vrijeme za let</a>
+                <span class="d-block mt-2">© 2026 DronePilot Services</span>
+            </div>
+        </div>
+    </div>
+</footer>

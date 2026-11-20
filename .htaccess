@@ -1,0 +1,7 @@
+# Frontend files change often: the browser must ask the server before reusing a cached copy.
+# Unchanged files are answered with "304 Not Modified" (ETag), so nothing is downloaded twice.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|js|css)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+</IfModule>
