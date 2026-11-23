@@ -79,6 +79,37 @@ abstract class BaseDao
         return $statement->execute(['id' => $id]);
     }
 
+    /*
+     * Counts rows where a column has a given value.
+     * Services use it for business rules, e.g. "a drone used by orders cannot be deleted".
+     */
+    public function countBy(string $column, mixed $value): int
+    {
+        $this->validateColumns([$column]);
+        $statement = $this->connection->prepare(
+            "SELECT COUNT(*) FROM {$this->table} WHERE {$column} = :value"
+        );
+        $statement->execute(['value' => $value]);
+
+        return (int) $statement->fetchColumn();
+    }
+
+    /*
+     * Returns the first row where a column has a given value, or null.
+     * Used for uniqueness checks (email, serial number, setting key...).
+     */
+    public function getOneBy(string $column, mixed $value): ?array
+    {
+        $this->validateColumns([$column]);
+        $statement = $this->connection->prepare(
+            "SELECT * FROM {$this->table} WHERE {$column} = :value LIMIT 1"
+        );
+        $statement->execute(['value' => $value]);
+        $row = $statement->fetch();
+
+        return $row === false ? null : $row;
+    }
+
     protected function namedParameters(array $data): array
     {
         $parameters = [];

@@ -4,6 +4,49 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Sections scrolled to from the navbar stop below the sticky navbar instead of under it. */
+section[id] {
+    scroll-margin-top: 80px;
+}
+
+/* Weather widget (home page, #vrijeme) */
+.weather-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.weather-details li + li {
+    border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.weather-day {
+    border-top: 4px solid transparent !important;
+}
+
+.weather-day-good {
+    border-top-color: #198754 !important;
+}
+
+.weather-day-good .weather-verdict {
+    color: #198754;
+}
+
+.weather-day-caution {
+    border-top-color: #ffc107 !important;
+}
+
+.weather-day-caution .weather-verdict {
+    color: #997404;
+}
+
+.weather-day-bad {
+    border-top-color: #dc3545 !important;
+}
+
+.weather-day-bad .weather-verdict {
+    color: #dc3545;
+}
+
 .logo-badge {
     width: 60px;
     height: 60px;
@@ -246,4 +289,785 @@ body {
         align-items: flex-start;
         gap: 16px;
     }
+}
+
+/* ==========================================================================
+   Landing page (frontend/views/home.html)
+   ========================================================================== */
+
+:root {
+    --sky-deep: #0b2a5b;
+    --sky-mid: #1f63c6;
+    --sky-light: #6fb8f5;
+    --sky-pale: #eaf4ff;
+    --brand-accent: #ffc93c;
+    --ink: #0f172a;
+}
+
+/* Shared navbar (index.html): dark glass that lets the sky show through */
+.app-navbar {
+    background: rgba(9, 22, 48, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Hero sky ---------- */
+.hero-sky {
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    padding: 90px 0 150px;
+    background:
+        radial-gradient(circle at 85% 12%, rgba(255, 214, 120, 0.35) 0, rgba(255, 214, 120, 0) 32%),
+        linear-gradient(180deg, var(--sky-deep) 0%, var(--sky-mid) 55%, var(--sky-light) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Frosted glass panel behind the hero text: the drifting clouds are blurred behind it, so the text stays readable. */
+.hero-glass {
+    padding: 36px 32px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 20px 50px rgba(8, 26, 60, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+.hero-glass .hero-lead {
+    margin-bottom: 28px;
+}
+
+.hero-glass .hero-stats {
+    margin-top: 32px;
+}
+
+/* Inside the glass panel the stat boxes are a bit darker, so they still stand out. */
+.hero-glass .hero-stats > div {
+    background: rgba(8, 26, 60, 0.18);
+}
+
+.hero-sun {
+    position: absolute;
+    top: 48px;
+    right: 9%;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff6d6 0%, #ffd66b 55%, rgba(255, 214, 107, 0) 72%);
+    opacity: 0.9;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    margin-bottom: 22px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(6px);
+}
+
+.hero-title {
+    font-size: clamp(2.3rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.hero-highlight {
+    color: var(--brand-accent);
+}
+
+.hero-lead {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 560px;
+    margin: 0 auto 32px;
+}
+
+.hero-btn {
+    color: var(--sky-deep);
+}
+
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.hero-stats > div {
+    min-width: 130px;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(6px);
+}
+
+.hero-stats strong {
+    display: block;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.hero-stats span {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 992px) {
+    .hero-lead {
+        margin-left: 0;
+    }
+
+    .hero-stats {
+        justify-content: flex-start;
+    }
+}
+
+/* ---------- Drone illustration (inline SVG in home.html) ---------- */
+.hero-drone-wrap {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.hero-drone-glow {
+    position: absolute;
+    inset: 15% 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 70%);
+}
+
+.hero-drone {
+    position: relative;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 30px 30px rgba(8, 26, 60, 0.35));
+    animation: drone-hover 4s ease-in-out infinite;
+}
+
+.drone-arm {
+    stroke: #1e293b;
+    stroke-width: 9;
+    stroke-linecap: round;
+    fill: none;
+}
+
+.drone-rotor-disc {
+    fill: rgba(255, 255, 255, 0.28);
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 1;
+}
+
+/* transform-box: fill-box makes each blade spin around its own center */
+.drone-blade {
+    fill: rgba(15, 23, 42, 0.75);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: rotor-spin 0.35s linear infinite;
+}
+
+.drone-blade-reverse {
+    animation-direction: reverse;
+}
+
+.drone-motor {
+    fill: #0f172a;
+    stroke: #475569;
+    stroke-width: 2;
+}
+
+.drone-body {
+    fill: #f1f5f9;
+    stroke: #cbd5e1;
+    stroke-width: 2;
+}
+
+.drone-shell {
+    fill: #1f63c6;
+}
+
+.drone-gimbal {
+    fill: #334155;
+}
+
+.drone-camera {
+    fill: #0f172a;
+    stroke: #64748b;
+    stroke-width: 2;
+}
+
+.drone-lens {
+    fill: #1e3a8a;
+}
+
+.drone-lens-glint {
+    fill: #bfdbfe;
+}
+
+.drone-led {
+    animation: led-blink 1.6s ease-in-out infinite;
+}
+
+.drone-led-green {
+    fill: #22c55e;
+}
+
+.drone-led-red {
+    fill: #ef4444;
+    animation-delay: 0.8s;
+}
+
+.hero-chip {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 12px 30px rgba(8, 26, 60, 0.2);
+    animation: chip-float 5s ease-in-out infinite;
+}
+
+.hero-chip i {
+    color: var(--sky-mid);
+}
+
+.hero-chip-top {
+    top: 6px;
+    left: 0;
+}
+
+.hero-chip-bottom {
+    bottom: 10px;
+    right: 0;
+    animation-delay: 1.5s;
+}
+
+.hero-chip-bottom i {
+    color: #ef4444;
+}
+
+/* ---------- Clouds (pure CSS: one rounded base + two puffs) ---------- */
+/* Each cloud sets its size with "scale"; the drift animation uses "translate", so they do not clash. */
+.cloud {
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    height: 60px;
+    border-radius: 60px;
+    background: #fff;
+    opacity: 0.85;
+    animation: cloud-drift linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.cloud::before {
+    width: 90px;
+    height: 90px;
+    top: -45px;
+    left: 30px;
+}
+
+.cloud::after {
+    width: 110px;
+    height: 110px;
+    top: -60px;
+    right: 25px;
+}
+
+.cloud-1 {
+    top: 18%;
+    left: -220px;
+    scale: 0.8;
+    animation-duration: 55s;
+}
+
+.cloud-2 {
+    top: 52%;
+    left: -220px;
+    scale: 1.1;
+    opacity: 0.6;
+    animation-duration: 75s;
+    animation-delay: -30s;
+}
+
+.cloud-3 {
+    top: 30%;
+    left: -220px;
+    scale: 0.55;
+    opacity: 0.7;
+    animation-duration: 45s;
+    animation-delay: -12s;
+}
+
+.cloud-4 {
+    bottom: 70px;
+    left: -220px;
+    scale: 1.4;
+    opacity: 0.95;
+    animation-duration: 90s;
+    animation-delay: -60s;
+}
+
+/* Wave at the bottom of the hero, same color as the next section */
+.section-wave {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    z-index: 3;
+    width: 100%;
+    height: 90px;
+}
+
+.section-wave path {
+    fill: #fff;
+}
+
+/* ---------- Sections ---------- */
+.landing-section {
+    position: relative;
+    padding: 80px 0;
+}
+
+.section-heading {
+    max-width: 680px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.section-heading h2 {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+}
+
+.section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--sky-mid);
+    background: rgba(31, 99, 198, 0.1);
+}
+
+.section-heading-light h2 {
+    color: #fff;
+}
+
+.section-heading-light p {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.section-heading-light .section-eyebrow {
+    color: #bfdbfe;
+    background: rgba(191, 219, 254, 0.12);
+}
+
+/* Why us: sits right under the hero wave, so less space on top */
+.features-section {
+    padding-top: 24px;
+}
+
+.feature-card {
+    height: 100%;
+    padding: 26px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(31, 99, 198, 0.12);
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+    font-size: 1.5rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--sky-mid), var(--sky-light));
+}
+
+/* Service and drone cards on the landing page */
+.card-image-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-image-wrap img {
+    transition: transform 0.5s ease;
+}
+
+.service-card,
+.drone-card {
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.service-card:hover .card-image-wrap img,
+.drone-card:hover .card-image-wrap img {
+    transform: scale(1.06);
+}
+
+.card-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+}
+
+/* How it works */
+.steps-row {
+    padding-top: 14px;
+}
+
+.step-card {
+    position: relative;
+    height: 100%;
+    padding: 30px 24px 24px;
+    border-radius: 20px;
+    text-align: center;
+    background: var(--sky-pale);
+}
+
+.step-number {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: #fff;
+    background: var(--sky-mid);
+    box-shadow: 0 6px 14px rgba(31, 99, 198, 0.35);
+}
+
+.step-icon {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 2rem;
+    color: var(--sky-mid);
+}
+
+/* Drones: night sky band with twinkling stars */
+.drones-band {
+    overflow: hidden;
+    background: linear-gradient(180deg, #081730 0%, #10264f 100%);
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 10% 20%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 25% 70%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 40% 35%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 55% 15%, #fff 50%, transparent 51%),
+        radial-gradient(2px 2px at 70% 60%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 85% 25%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 92% 80%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 5% 85%, #fff 50%, transparent 51%);
+    opacity: 0.7;
+    animation: stars-twinkle 4s ease-in-out infinite alternate;
+}
+
+/* Weather section: light sky with still clouds */
+.weather-sky {
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--sky-pale) 0%, #f8fbff 100%);
+}
+
+.cloud-soft {
+    opacity: 0.9;
+    animation: none;
+    box-shadow: 0 20px 40px rgba(31, 99, 198, 0.06);
+}
+
+.cloud-5 {
+    top: 60px;
+    left: 4%;
+    scale: 0.7;
+}
+
+.cloud-6 {
+    top: 140px;
+    right: 6%;
+    scale: 0.9;
+}
+
+.weather-search {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 8px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 14px 40px rgba(31, 99, 198, 0.15);
+}
+
+.weather-search .form-control {
+    border: 0;
+    border-radius: 999px;
+    padding-left: 44px;
+    box-shadow: none;
+}
+
+.weather-search .btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.weather-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 26px;
+    transform: translateY(-50%);
+    color: var(--sky-mid);
+}
+
+.weather-current-card {
+    background: linear-gradient(160deg, #ffffff 0%, var(--sky-pale) 100%);
+}
+
+/* Call to action */
+.cta-band {
+    position: relative;
+    overflow: hidden;
+    padding: 48px;
+    border-radius: 28px;
+    color: #fff;
+    background: linear-gradient(120deg, var(--sky-deep) 0%, var(--sky-mid) 60%, var(--sky-light) 100%);
+    box-shadow: 0 24px 50px rgba(31, 99, 198, 0.3);
+}
+
+.cloud-cta {
+    bottom: -20px;
+    right: 6%;
+    opacity: 0.18;
+    scale: 1.3;
+    animation: none;
+}
+
+/* Footer */
+.landing-footer {
+    padding: 36px 0;
+    color: rgba(255, 255, 255, 0.7);
+    background: #081730;
+}
+
+.landing-footer a {
+    margin-left: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+}
+
+.landing-footer a:first-child {
+    margin-left: 0;
+}
+
+.landing-footer a:hover {
+    color: #fff;
+}
+
+@media (max-width: 575px) {
+    .hero-sky {
+        padding: 60px 0 120px;
+    }
+
+    .hero-chip {
+        display: none;
+    }
+
+    .hero-glass {
+        padding: 26px 20px;
+        border-radius: 22px;
+    }
+
+    .landing-section {
+        padding: 60px 0;
+    }
+
+    .cta-band {
+        padding: 32px 22px;
+    }
+
+    .weather-search {
+        flex-direction: column;
+        border-radius: 24px;
+    }
+
+    .weather-search-icon {
+        top: 32px;
+    }
+}
+
+/* ---------- Animations ---------- */
+@keyframes drone-hover {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-16px) rotate(1deg);
+    }
+}
+
+@keyframes rotor-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes led-blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+}
+
+@keyframes chip-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes cloud-drift {
+    from {
+        translate: 0 0;
+    }
+    to {
+        translate: calc(100vw + 440px) 0;
+    }
+}
+
+@keyframes stars-twinkle {
+    from {
+        opacity: 0.45;
+    }
+    to {
+        opacity: 0.85;
+    }
+}
+
+/* Users who prefer less motion get a still page. */
+@media (prefers-reduced-motion: reduce) {
+    .hero-drone,
+    .drone-blade,
+    .drone-led,
+    .hero-chip,
+    .cloud,
+    .stars {
+        animation: none;
+    }
+}
+
+/* ==========================================================================
+   Admin panel additions (frontend/views/admin.html)
+   ========================================================================== */
+
+.admin-nav-back {
+    margin-top: 18px;
+    padding-top: 18px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 !important;
+    color: #94a3b8 !important;
+}
+
+.admin-live-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f5132;
+    background: #d1e7dd;
+}
+
+.admin-filter {
+    width: auto;
+    min-width: 160px;
+}
+
+.status-breakdown {
+    display: grid;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.status-progress {
+    height: 8px;
+}
+
+.battery-progress {
+    width: 80px;
+    height: 8px;
+}
+
+.admin-main .table th {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #64748b;
+    white-space: nowrap;
 }

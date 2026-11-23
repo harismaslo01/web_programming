@@ -1,0 +1,18 @@
+# Apache (XAMPP or hosting) configuration for the FlightPHP API.
+RewriteEngine On
+
+# Do not redirect "/services" to "/services/" just because backend/services/ is also a folder.
+DirectorySlash Off
+
+# 1. Swagger UI and its files are served as they are.
+RewriteRule ^public/ - [L]
+
+# 2. Never serve PHP source, configuration, logs, tests or Composer files over HTTP.
+#    Only real files are blocked, so API routes with the same name (GET /services) still work.
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(config|logs|test|dao|services|routes|middleware|vendor)/ - [F,L]
+RewriteRule ^composer\.(json|lock)$ - [F,L]
+
+# 3. Everything that is not a real file goes to FlightPHP (index.php).
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

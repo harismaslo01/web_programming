@@ -13,6 +13,11 @@ external API integration, logging, deployment, and role-based access.
 - Frontend architecture: hash-routed SPA with HTML views loaded by JavaScript.
 - Backend: Vanilla PHP using PDO and the FlightPHP framework.
 - Database: MySQL/MariaDB.
+- Local server: XAMPP Apache with PHP 8.4 (`C:/xampp/php84`), or
+  `php -S localhost:8000 server.php`. The Composer packages need PHP 8.4.
+- Entities: roles, users, services, drones, orders, media, settings.
+- Roles: admin and user.
+- External API: Open-Meteo (weather), called only from `WeatherService`.
 - Authentication: JWT is mandatory for protected routes.
 - API documentation: OpenAPI documentation with Swagger UI.
 - Additional libraries: Bootstrap, Highcharts, DataTables, and Composer packages
@@ -23,17 +28,46 @@ Milestone work from later milestones.
 
 ## Project Architecture
 
-- `index.html` is the SPA shell.
-- `frontend/views/` contains HTML page fragments.
+- `index.html` is the SPA shell. It contains the one shared navbar
+  (`#mainNavbar`) and loads the scripts once.
+- `frontend/views/` contains HTML page fragments. Views never contain their own
+  navbar; `main.js` updates the shared navbar (active link, login state).
 - `frontend/css/style.css` contains project CSS.
 - `frontend/js/main.js` contains the current hash router and shared UI behavior.
-- `backend/config/` contains database and secret configuration.
-- `backend/dao/` contains database access classes.
+- `frontend/js/services/` contains the only code that calls the backend:
+  `apiService.js` (`apiGet()`, timeout, `ApiError`) and one service per feature
+  (`weatherService.js`, `adminService.js`).
+- The root `.htaccess` sends `Cache-Control: no-cache` for HTML, JS, and CSS, so
+  browsers always revalidate frontend files instead of showing an old version.
+- `backend/.htaccess` sends Apache requests to FlightPHP and blocks direct access
+  to `config/`, `logs/`, `vendor/`, and the PHP source folders.
+- `.github/agents/` contains the Frontend, Backend, and Reviewer custom agents;
+  `.agents/skills/update-ai-log/SKILL.md` is the AI log skill.
+- `server.php` is the router script for `php -S localhost:8000 server.php`; it
+  sends `/backend/...` requests to `backend/index.php` and serves Swagger UI.
+- `backend/index.php` is the FlightPHP entry point: it sets the time zone,
+  registers the global JSON error handlers, services, and route files.
+- `backend/config/` contains database and secret configuration:
+  `config.php` (ignored by Git), `config.example.php`, `AppConfig.php`
+  (reads `config.php`; named this way because `Config.php` and `config.php`
+  collide on Windows), `Database.php` (PDO connection), and `Logger.php`
+  (`Logger::info()` -> `logs/info.log`, `Logger::error()` -> `logs/error.log`).
+- `backend/dao/` contains database access classes. `BaseDao` provides CRUD plus
+  `countBy()` and `getOneBy()`.
 - `backend/services/` contains application business logic and external API logic.
-- `backend/routes/` contains FlightPHP REST routes.
+  `BaseService` provides shared CRUD, 404 handling, the `validate()`,
+  `beforeDelete()`, and `present()` hooks, and the `clean*()` validation helpers.
+  `WeatherService` integrates the Open-Meteo API.
+- `backend/routes/` contains FlightPHP REST routes, one file per entity, plus
+  `RouteHelpers.php` (`getRequestBody()`).
 - `backend/middleware/` contains authentication, authorization, logging, and
-  error-handling middleware.
+  error-handling middleware. `HttpException` carries 4xx/5xx status codes.
+- `backend/public/v1/docs/` contains Swagger UI, `swagger.php` (generates the
+  OpenAPI JSON), `doc_setup.php` (API info and schemas), and `paths/` (one
+  `*Paths.php` file with swagger-php attributes per route file).
 - `backend/logs/` contains runtime logs and must not be committed.
+- `database/migrations/` contains SQL changes for databases imported before a
+  milestone changed the schema.
 - `database/` contains the exported MySQL schema and sample data.
 - `docs/` contains project documentation and `ProjectRequirements.txt`.
 
@@ -81,6 +115,21 @@ docs/
 - Milestone 5 must add frontend/backend validations and deployment.
 - Complete milestone implementation in a separate milestone branch.
 
+## Milestone Status
+
+- Milestone 1 (documentation, AI context): completed.
+- Milestone 2 (database export, DAO layer): completed.
+- Milestone 3 (FlightPHP routes, services, OpenAPI/Swagger, Open-Meteo external
+  API, booking weather check): completed on branch `milestone3`. The home page
+  shows the "Vrijeme za let" weather widget through `weatherService.js`, and
+  the admin panel (`#/admin?section=...`) lists all entities through
+  `adminService.js` (read-only until Milestone 4). The API
+  has no authentication yet; every endpoint is public until Milestone 4. The
+  other frontend pages still use static data and mock login.
+- Milestone 4 (JWT, roles, middleware, request logging, AJAX frontend including
+  the booking form and weather message): not started.
+- Milestone 5 (validations on both sides, deployment): not started.
+
 ## AI Assistant Rules
 
 1. Keep HTML, CSS, and JavaScript separate.
@@ -117,6 +166,15 @@ docs/
 25. Update `docs/AI_LOG.md` for every milestone, including tools, prompts, and at
     least two corrected AI mistakes with what was wrong, how it was noticed, and
     how it was fixed.
+26. Do not add new libraries, frameworks, or Composer packages without asking
+    first.
+27. Do not change the database schema without asking first. Every schema change
+    needs an updated `database/dronepilot_services.sql` and a migration in
+    `database/migrations/`.
+28. Do not edit files in `backend/logs/`.
+29. Keep one shared navbar in `index.html`; never copy navigation into views.
+30. Make small changes and explain what changed and why, so the student can
+    review and defend every line.
 
 ## Validation
 
@@ -124,6 +182,9 @@ docs/
 - Verify primary and foreign keys and sample records.
 - Verify all DAO create, read, update, and delete operations against MySQL.
 - Import the SQL file on a clean database and run backend tests.
+- Start the API with `php -S localhost:8000 server.php` and check every endpoint
+  (status codes 200/201/400/404/409/500/503) and that Swagger at
+  `/backend/public/v1/docs/` loads without errors.
 - Validate HTML, navigation, responsive layout, browser console output, images,
   and route behavior.
 - Before each milestone submission, verify the required files are committed to

@@ -2,6 +2,7 @@
 .env
 .env.*
 backend/config/config.php
+backend/vendor/
 *.pem
 *.key
 *.crt
@@ -13,7 +14,7 @@ node_modules/
 # Logs and runtime output
 backend/logs/*
 !backend/logs/.gitkeep
-logs/
+/logs/
 *.log
 
 # OS and editor files
@@ -24,3 +25,7 @@ Thumbs.db
 # Build and cache
 cache/
 coverage/
+
+# Postman local workspace (not part of the submission)
+postman/
+.postman/
